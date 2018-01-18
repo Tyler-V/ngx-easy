@@ -1,0 +1,8 @@
+{
+    "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+    "src": "src/ngx-easy-modal",
+    "dest": "dist/ngx-easy-modal",
+    "lib": {
+      "entryFile": "index.ts"
+    }
+  }
