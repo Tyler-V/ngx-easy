@@ -2,10 +2,14 @@
 <div class="container">
   <div class="header">
     <div class="title">Title</div>
-    <div class="close" (click)="close()">Close</div>
+    <div class="close" (click)="close()">
+      <i class="icon fa fa-close"></i>
+    </div>
   </div>
   <div class="content">
     <ng-content></ng-content>
   </div>
-  <div class="actions"></div>
+  <div class="actions">
+    <div class="button" (click)="close()">Close</div>
+  </div>
 </div>

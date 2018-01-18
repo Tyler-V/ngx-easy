@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 $overlay-opacity: .75;
 .overlay {
   position: fixed;
@@ -32,6 +33,8 @@ $overlay-opacity: .75;
       line-height: inherit;
       background-color: inherit;
       text-align: center;
+      font-family: Roboto;
+      font-size: 18px;
     }
     .close {
       position: absolute;
@@ -41,7 +44,14 @@ $overlay-opacity: .75;
       width: 50px;
       line-height: inherit;
       background-color: inherit;
-      text-align: center;
+      .icon {
+        line-height: inherit;
+        width: inherit;
+        height: inherit;
+        font-size: 25px;
+        color: tomato;
+        text-align: center;
+      }
     }
   }
   .content {}
@@ -50,7 +60,24 @@ $overlay-opacity: .75;
     bottom: 0;
     height: 50px;
     width: 100%;
+    line-height: 50px;
     background-color: gainsboro;
+    font-family: Roboto;
+    font-size: 18px;
+    .button {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      width: 100px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border-radius: 3px;
+      background-color: rgba(0, 0, 0, .75);
+      color: white;
+      font-size: 15px;
+      box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .2), 0 1px 8px 0 rgba(0, 0, 0, .12);
+    }
   }
 }
 
