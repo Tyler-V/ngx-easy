@@ -1,0 +1,29 @@
+.sidenav-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  .sidenav-menu {
+    width: 300px;
+    padding: 20px;
+  }
+}
+
+.mat-toolbar {
+  position: fixed;
+  .mat-toolbar-row {
+    .navigaton {
+      flex: auto;
+    }
+    .title {
+      flex: auto;
+    }
+  }
+}
+
+.sidenav-content {
+  position: absolute;
+  top: 64px;
+  padding: 20px;
+  height: calc(100% - 104px);
+  width: calc(100% - 40px);
+}
