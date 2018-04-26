@@ -1,25 +1,10 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav class="sidenav-menu mat-elevation-z6" #sidenav mode="over" fixedInViewport="true">
-    Navigation
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <mat-toolbar-row class="mat-elevation-z6">
-        <div class="navigaton">
-          <button mat-icon-button>
-            <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-          </button>
-        </div>
-        <div class="title">Script Statistics</div>
-        <div class="buttons">
-          <button mat-icon-button routerLink="/login">
-            <mat-icon>account_circle</mat-icon>
-          </button>
-        </div>
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <div class="sidenav-content">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div class="container">
+  <ez-virtual-scroll #vs [size]="items.length" [rowHeight]="50">
+    <ng-container *ngFor="let item of items.slice(vs.index?.start, vs.index?.end); let first = first;">
+      <div class="row" [style.background-color]="item.color" [class.first]="first">
+        <div class="item no-select">{{numberWithCommas(item.index)}}</div>
+        <div class="drag-handle"></div>
+      </div>
+    </ng-container>
+  </ez-virtual-scroll>
+</div>
