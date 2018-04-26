@@ -1,0 +1,44 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ez-virtual-scroll {
+  height: 500px;
+  width: 400px;
+  border: 1px solid black;
+  .row {
+    display: flex;
+    align-content: flex-start;
+    height: 50px;
+    line-height: 50px;
+    box-sizing: border-box;
+    border-top: 1px solid;
+    &.first {
+      border-top: none !important;
+    }
+    .item {
+      height: 50px;
+      width: 100%;
+      font-size: 12px;
+      text-align: center;
+      font-family: 'Oswald', sans-serif;
+    }
+    .drag-handle {
+      position: absolute;
+      right: 0;
+      height: 50px;
+      width: 50px;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAD1BMVEUAAAAEBwcAAAAICAgEBwdIVJjzAAAABHRSTlMAvxAgDD3tLgAAAClJREFUKM9jgAAmEUcFBmTA6OIigCLA4uLigC7gjFMLwtBBAEY9R77nAOJDCzKRXnfNAAAAAElFTkSuQmCC');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: 16px 16px;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<div class="container">
+  <ez-virtual-scroll #vs [size]="items.length" [rowHeight]="50">
+    <ng-container *ngFor="let item of items.slice(vs.index?.start, vs.index?.end); let first = first;">
+      <div class="row" [style.background-color]="item.color" [class.first]="first">
+        <div class="item no-select">{{numberWithCommas(item.index)}}</div>
+        <div class="drag-handle"></div>
+      </div>
+    </ng-container>
+  </ez-virtual-scroll>
+</div>

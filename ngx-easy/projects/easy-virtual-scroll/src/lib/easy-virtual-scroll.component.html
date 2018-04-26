@@ -1,0 +1,5 @@
+<div class="transit" #transit></div>
+<div class="scroll-padding" #scroll [style.height]="scrollHeight + 'px'"></div>
+<div class="scroll-content" #content [attr.size]="size" [attr.rows]="rows" [attr.rendered]="index?.end - index?.start" [attr.first]="index?.start" [attr.last]="index?.end" [style.transform]="'translate3d(0px, ' + topPadding + 'px, 0px)'">
+    <ng-content></ng-content>
+</div>

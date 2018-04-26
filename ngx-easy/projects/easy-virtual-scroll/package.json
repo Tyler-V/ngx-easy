@@ -1,0 +1,12 @@
+{
+  "name": "@ngx-easy/virtual-scroll",
+  "version": "0.0.3",
+  "private": false,
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
+  },
+  "dependencies": {
+    "rxjs": "^6.0.0"
+  }
+}
