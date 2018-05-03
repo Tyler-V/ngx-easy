@@ -1,0 +1,8 @@
+<ng-template #template let-item="item">
+  <ng-container *ngIf="externalTemplate == null">
+    {{item[field]}}
+  </ng-container>
+  <ng-container *ngIf="externalTemplate != null">
+    <ng-template [ngTemplateOutlet]="externalTemplate" [ngTemplateOutletContext]="{ item: item }"></ng-template>
+  </ng-container>
+</ng-template>

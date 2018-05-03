@@ -1,0 +1,27 @@
+<ez-grid [data]="data" [rowHeight]="40" [buffer]="0" [debounceTime]="0" [sortable]="true" [filterable]="true">
+  <ez-grid-column field="id" title="ID" width="120"></ez-grid-column>
+  <ez-grid-column field="firstName" title="First Name" width="150"></ez-grid-column>
+  <ez-grid-column field="lastName" title="Last Name" width="150"></ez-grid-column>
+  <ez-grid-column field="city" title="City" width="150"></ez-grid-column>
+  <ez-grid-column field="title" title="Title" width="200"></ez-grid-column>
+  <ez-grid-column field="employed" title="Employed" width="150">
+    <ng-template let-item="item">
+      <input type="checkbox" [checked]="item.employed" disabled/>
+    </ng-template>
+  </ez-grid-column>
+  <ez-grid-column field="date" title="Start Date" width="150">
+    <ng-template let-item="item">
+      {{ item.date | amDateFormat:"ll" }}
+    </ng-template>
+  </ez-grid-column>
+  <ez-grid-column field="salary" title="Salary" width="150">
+    <ng-template let-item="item">
+      {{ item.salary | currency:'USD':'symbol':'2.2-4'}}
+    </ng-template>
+  </ez-grid-column>
+  <ez-grid-column field="phone" title="Phone" width="150">
+    <ng-template let-item="item">
+      {{ item.phone | phone}}
+    </ng-template>
+  </ez-grid-column>
+</ez-grid>

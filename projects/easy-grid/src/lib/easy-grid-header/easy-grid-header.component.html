@@ -1,0 +1,49 @@
+<div #header class="ez-grid-header">
+  <table>
+    <colgroup>
+      <col *ngFor="let column of gridService.columns" [style.width.px]="column.width">
+      <col *ngIf="gridService.hasScrollBar" [style.width.px]="11">
+    </colgroup>
+    <thead>
+      <tr class="ez-grid-title" [style.height.px]="gridService.headerHeight">
+        <th *ngFor="let column of gridService.columns" rowspan="1" colspan="1" (click)="sort(column)">
+          <a class="title">{{column.title}}</a>
+          <div class="column-icons">
+            <div *ngIf="column.sorting" class="loading spinner"></div>
+            <mat-icon *ngIf="!column.sorting && column.sort != 'None'" class="sorting-icon">
+              {{column.sort == 'Asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}
+            </mat-icon>
+          </div>
+        </th>
+      </tr>
+      <tr class="ez-grid-filtering" *ngIf="gridService.filterable" [style.height.px]="gridService.headerHeight">
+        <th *ngFor="let column of gridService.columns" rowspan="1" colspan="1">
+          <div class="filter-container">
+            <div class="filter-input">
+              <input #filterText type="text" [(ngModel)]="column.filterText" (keyup)="filter$.next(filterText.value)">
+            </div>
+            <div class="button clear" *ngIf="column.filterText" (click)="clearFilter(column)">
+              <mat-icon>clear</mat-icon>
+            </div>
+            <div class="button filter">
+              <div *ngIf="column.filtering" class="loading bars"></div>
+              <mat-icon *ngIf="!column.filtering" [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{column: column}">sort</mat-icon>
+            </div>
+          </div>
+        </th>
+        <th *ngIf="gridService.hasScrollBar"></th>
+      </tr>
+    </thead>
+  </table>
+</div>
+
+<mat-menu #filterMenu>
+  <ng-template let-column="column" matMenuContent>
+    <ng-container *ngFor="let filter of filters">
+      <button mat-menu-item (click)="setColumnFilter(column, filter)">
+        <mat-icon>{{column.filter == filter ? 'check' : ''}}</mat-icon>
+        <span>{{filter}}</span>
+      </button>
+    </ng-container>
+  </ng-template>
+</mat-menu>

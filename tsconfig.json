@@ -19,6 +19,9 @@
     "paths": {
       "easy-virtual-scroll": [
         "dist/easy-virtual-scroll"
+      ],
+      "easy-grid": [
+        "dist/easy-grid"
       ]
     }
   }

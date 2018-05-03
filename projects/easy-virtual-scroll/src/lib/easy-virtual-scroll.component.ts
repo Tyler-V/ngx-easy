@@ -15,6 +15,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/fromEvent';
+import { ScrollIndex, ScrollEvent, ScrollType } from './types';
 
 @Component({
   selector: 'ez-virtual-scroll',
@@ -27,21 +28,20 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
 
   @Input() size: number;
   @Input() rowHeight: number;
-  @Input() rowPadding: number;
+  @Input() buffer: number;
   @Input() debounceTime: number;
 
-  @Output() update: EventEmitter<Index> = new EventEmitter<Index>();
+  @Output() update: EventEmitter<ScrollIndex> = new EventEmitter<ScrollIndex>();
   @Output() scroll: EventEmitter<ScrollEvent> = new EventEmitter<ScrollEvent>();
 
   @ViewChild('transit') transit: ElementRef;
   @ViewChild('scroll') scrollElementRef: ElementRef;
   @ViewChild('content') contentElementRef: ElementRef;
 
-  public index: Index;
-  public previousIndex: Index;
-  public visible: Index;
+  public index: ScrollIndex;
+  public previousIndex: ScrollIndex;
+  public visible: ScrollIndex;
   public rows: number;
-  public scrollHeight: number;
   public topPadding: number;
 
   private scrollTop: number;
@@ -52,7 +52,6 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
-    this.scrollHeight = this.rowHeight * this.size;
     const scrollSubscription$: Observable<Event> = Observable.fromEvent(this.elementRef.nativeElement, 'scroll');
     this.yScrollSubscription$ = scrollSubscription$
       .debounceTime(this.debounceTime)
@@ -93,11 +92,12 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
   /**
    * Gets the current Index of items that should be displayed based on the scroll position.
    */
-  private getIndex(): Index {
+  private getIndex(): ScrollIndex {
     const el = this.elementRef.nativeElement;
-    el.scrollTop = Math.max(0, Math.min(el.scrollTop, this.scrollHeight));
-    const start = Math.max(0, Math.floor(el.scrollTop / this.scrollHeight * this.size));
-    const end = Math.min(this.size, Math.ceil(el.scrollTop / this.scrollHeight * this.size) + Math.ceil(el.clientHeight / this.rowHeight));
+    const scrollHeight = this.rowHeight * this.size;
+    el.scrollTop = Math.max(0, Math.min(el.scrollTop, scrollHeight));
+    const start = Math.max(0, Math.floor(el.scrollTop / scrollHeight * this.size));
+    const end = Math.min(this.size, Math.ceil(el.scrollTop / scrollHeight * this.size) + Math.ceil(el.clientHeight / this.rowHeight));
     return {
       start: start,
       end: end
@@ -107,7 +107,7 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
   /**
    * @returns: Whether the grid is getting close to the start or end of the currently displayed content.
    */
-  private shouldUpdate(index: Index) {
+  private shouldUpdate(index: ScrollIndex) {
     if (!this.index) {
       return true;
     }
@@ -115,7 +115,7 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
       || (Math.min(this.size, (index.end + this.rows)) > this.index.end));
   }
 
-  private refresh() {
+  public refresh() {
     requestAnimationFrame(() => {
       const index = this.getIndex();
 
@@ -130,13 +130,13 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
 
       this.rows = index.end - index.start;
 
-      if (this.rowPadding == null) {
-        this.rowPadding = this.rows * 1;
+      if (this.buffer == null) {
+        this.buffer = this.rows * 1;
       }
 
-      this.topPadding = Math.max(0, ((this.rowHeight * index.start) - (this.rowHeight * this.rowPadding)));
-      index.start = Math.max(0, (index.start - this.rowPadding));
-      index.end = Math.min(this.size, (index.end + this.rowPadding));
+      this.topPadding = Math.max(0, ((this.rowHeight * index.start) - (this.rowHeight * this.buffer)));
+      index.start = Math.max(0, (index.start - this.buffer));
+      index.end = Math.min(this.size, (index.end + this.buffer));
 
       if (this.previousIndex === undefined || index.start !== this.previousIndex.start || index.end !== this.previousIndex.end) {
         if (!isNaN(index.start) && !isNaN(index.end)) {
@@ -146,19 +146,4 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
       }
     });
   }
-}
-
-export interface Index {
-  start?: number;
-  end?: number;
-}
-
-export interface ScrollEvent {
-  type: ScrollType;
-  index?: Index;
-  scrollLeft?: number;
-}
-
-export enum ScrollType {
-  Horizontal, Vertical
 }

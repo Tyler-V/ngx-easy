@@ -1,0 +1,24 @@
+<div class="ez-grid-table-container" [style.height]="'calc(100% - ' + ((gridService.headerHeight * (gridService.filterable ? 2 : 1)) + gridService.footerHeight) + 'px)'">
+  <ez-virtual-scroll #vs [size]="gridService.data.length" [rowHeight]="gridService.rowHeight" [buffer]="gridService.buffer"
+    [debounceTime]="gridService.debounceTime" (scroll)="onScroll($event)">
+    <div class="loading">
+      <div class="loading-icon"></div>
+    </div>
+    <div class="ez-grid-table">
+      <table>
+        <colgroup>
+          <col *ngFor="let column of gridService.columns" [style.width.px]="column.width">
+        </colgroup>
+        <tbody>
+          <ng-container *ngFor="let item of gridService.data.slice(vs.index?.start, vs.index?.end); let i = index">
+            <tr [style.height.px]="gridService.rowHeight" [attr.row]="vs.index?.start + i + 1" [class.alt]="(vs.index?.start + i) % 2 == 0">
+              <td *ngFor="let column of gridService.columns; trackBy: trackByFn" colspan="1">
+                <ng-template [ngTemplateOutlet]="column.template" [ngTemplateOutletContext]="{ item: item }"></ng-template>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </ez-virtual-scroll>
+</div>

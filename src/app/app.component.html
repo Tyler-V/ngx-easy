@@ -1,10 +1,26 @@
-<div class="container">
-  <ez-virtual-scroll #vs [size]="items.length" [rowHeight]="50">
-    <ng-container *ngFor="let item of items.slice(vs.index?.start, vs.index?.end); let first = first;">
-      <div class="row" [style.background-color]="item.color" [class.first]="first">
-        <div class="item no-select">{{numberWithCommas(item.index)}}</div>
-        <div class="drag-handle"></div>
-      </div>
-    </ng-container>
-  </ez-virtual-scroll>
-</div>
+<mat-toolbar color="primary" class="mat-elevation-z3">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>@ngx-easy/{{title}}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container class="drawer-container">
+  <mat-drawer class="mat-elevation-z3" #drawer mode="push">
+    <mat-list role="list">
+      <mat-list-item>
+        <button mat-button [tabIndex]="-1" [routerLink]="['/virtual-scroll']">Easy Virtual Scroll</button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button [tabIndex]="-1" [routerLink]="['/grid']">Easy Grid</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="router-container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
