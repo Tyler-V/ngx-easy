@@ -1,5 +1,4 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { DeviceDetectorService } from 'ngx-device-detector';
 import { EasyGridColumn } from '../easy-grid-column/easy-grid-column';
 import { ScrollIndex } from '@ngx-easy/virtual-scroll';
 import { Subject } from 'rxjs/Subject';
@@ -23,9 +22,7 @@ export class EasyGridService {
   public isMobile: boolean;
   public hasScrollBar: boolean;
 
-  constructor(
-    private deviceService: DeviceDetectorService,
-  ) {
-    this.isMobile = !this.deviceService.isDesktop();
+  constructor() {
+    this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(navigator.userAgent);
   }
 }

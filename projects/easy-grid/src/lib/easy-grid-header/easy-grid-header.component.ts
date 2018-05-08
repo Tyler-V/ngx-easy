@@ -9,7 +9,6 @@ import { MatMenu } from '@angular/material/menu';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import * as _ from 'lodash';
-/// <reference path="../../../typings/globals/underscore/index.d.ts" />
 
 @Component({
   selector: 'ez-grid-header',
