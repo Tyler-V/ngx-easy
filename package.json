@@ -9,10 +9,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:vs": "ng build easy-virtual-scroll --prod",
-    "build:grid": "ng build easy-grid --prod",
-    "publish:grid": "npm publish dist/easy-grid",
-    "publish:vs": "npm publish dist/easy-virtual-scroll"
+    "build:virtual-scroll": "ng build virtual-scroll --prod",
+    "build:grid": "ng build grid --prod",
+    "publish:grid": "npm publish dist/grid",
+    "publish:virtual-scroll": "npm publish dist/virtual-scroll"
   },
   "private": false,
   "dependencies": {

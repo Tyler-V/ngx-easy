@@ -17,11 +17,11 @@
       "dom"
     ],
     "paths": {
-      "easy-virtual-scroll": [
-        "dist/easy-virtual-scroll"
+      "virtual-scroll": [
+        "dist/virtual-scroll"
       ],
-      "easy-grid": [
-        "dist/easy-grid"
+      "grid": [
+        "dist/grid"
       ]
     }
   }
