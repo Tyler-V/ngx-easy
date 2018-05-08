@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { VirtualScrollModule } from './demos/virtual-scroll/virtual-scroll.module';
-import { GridModule } from './demos/grid/grid.module';
 
 const routes: Routes = [
   {
@@ -11,14 +9,16 @@ const routes: Routes = [
   },
   {
     path: 'virtual-scroll',
-    loadChildren: () => VirtualScrollModule,
+    loadChildren: './demos/virtual-scroll/virtual-scroll.module#VirtualScrollModule',
+    pathMatch: 'full',
     data: {
       title: 'virtual-scroll'
     }
   },
   {
     path: 'grid',
-    loadChildren: () => GridModule,
+    loadChildren: './demos/grid/grid.module#GridModule',
+    pathMatch: 'full',
     data: {
       title: 'grid'
     }
