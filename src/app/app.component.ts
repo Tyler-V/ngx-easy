@@ -6,7 +6,7 @@ import 'rxjs/add/operator/mergeMap';
 import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'ez-root',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

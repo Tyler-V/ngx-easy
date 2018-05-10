@@ -12,6 +12,7 @@
     "@angular/material": "^6.0.1",
     "@ngx-easy/virtual-scroll": "0.0.10",
     "lodash": "^4.17.10",
-    "rxjs": "^6.1.0"
+    "rxjs": "^6.1.0",
+    "rxjs-compat": "^6.1.0"
   }
 }

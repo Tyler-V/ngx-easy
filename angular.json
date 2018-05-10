@@ -5,8 +5,9 @@
   "projects": {
     "ngx-easy": {
       "root": "",
+      "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "ez",
+      "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss"
@@ -22,16 +23,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              {
-                "glob": "favicon.ico",
-                "input": "src",
-                "output": "/"
-              },
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "/assets"
-              }
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "src/styles.scss"
@@ -40,12 +33,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -87,16 +78,8 @@
             ],
             "scripts": [],
             "assets": [
-              {
-                "glob": "favicon.ico",
-                "input": "src/",
-                "output": "/"
-              },
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "/assets"
-              }
+              "src/favicon.ico",
+              "src/assets"
             ]
           }
         },
@@ -138,12 +121,14 @@
     },
     "virtual-scroll": {
       "root": "projects/virtual-scroll",
+      "sourceRoot": "projects/virtual-scroll/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
+            "tsConfig": "projects/virtual-scroll/tsconfig.lib.json",
             "project": "projects/virtual-scroll/ng-package.json"
           },
           "configurations": {
@@ -164,7 +149,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/virtual-scroll/tsconfig.lint.json",
+              "projects/virtual-scroll/tsconfig.lib.json",
               "projects/virtual-scroll/tsconfig.spec.json"
             ],
             "exclude": [
@@ -176,12 +161,14 @@
     },
     "grid": {
       "root": "projects/grid",
+      "sourceRoot": "projects/grid/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
+            "tsConfig": "projects/grid/tsconfig.lib.json",
             "project": "projects/grid/ng-package.json"
           },
           "configurations": {
@@ -202,7 +189,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/grid/tsconfig.lint.json",
+              "projects/grid/tsconfig.lib.json",
               "projects/grid/tsconfig.spec.json"
             ],
             "exclude": [

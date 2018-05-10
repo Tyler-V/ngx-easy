@@ -20,8 +20,7 @@ import { EasyGridService } from './services/easy-grid.service';
 })
 export class EasyGridComponent implements OnInit {
 
-  @HostBinding('class.ez-grid')
-  private _class = true;
+  @HostBinding('class.ez-grid') class = true;
 
   // Required
   @Input() data: any[];
