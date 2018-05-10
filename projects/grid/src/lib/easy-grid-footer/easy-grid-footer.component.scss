@@ -1,8 +1,13 @@
+@import '../styles';
 .ez-grid-footer {
   display: block;
+  position: relative;
+  top: -1px;
   width: 100%;
-  background-color: #4B4B4B;
-  color: #FFFFFF;
+  background-color: $footer-background-color;
+  color: $footer-color;
+  border-top: 1px solid $border-color;
+  box-sizing: border-box;
   .text {
     font-size: 12px;
     padding: 0 10px;

@@ -12,7 +12,7 @@ export class GridComponent {
   public gridHeight: number;
 
   constructor() {
-    this.data = this.generate(100000);
+    this.data = this.generate(50000);
   }
 
   generate(rows: number) {

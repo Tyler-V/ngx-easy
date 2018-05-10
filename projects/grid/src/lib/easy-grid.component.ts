@@ -33,6 +33,7 @@ export class EasyGridComponent implements OnInit {
   @Input() sortable: boolean;
   @Input() filterable: boolean;
   @Input() headerHeight: number;
+  @Input() footer: boolean;
   @Input() footerHeight: number;
 
   @ContentChildren(forwardRef(() => EasyGridColumnComponent))
@@ -46,6 +47,7 @@ export class EasyGridComponent implements OnInit {
     this.gridService.buffer = this.buffer;
     this.gridService.debounceTime = this.debounceTime;
     this.gridService.headerHeight = this.headerHeight ? this.headerHeight : this.rowHeight;
+    this.gridService.footer = !this.footer ? true : this.footer === true;
     this.gridService.footerHeight = this.footerHeight ? this.footerHeight : this.rowHeight / 2;
     this.gridService.sortable = this.sortable === true;
     this.gridService.filterable = this.filterable === true;

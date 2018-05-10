@@ -1,14 +1,18 @@
+@import '../styles';
 .ez-grid-header {
   overflow: hidden;
   font-size: 15px;
   user-select: none;
+  color: $header-color;
+  background-color: $header-background-color;
+  border-color: $border-color;
   table {
     height: inherit;
     display: inline-table;
     table-layout: fixed;
-    background-color: #4B4B4B;
-    color: #FFFFFF;
-    border-color: rgba(0, 0, 0, .08);
+    background-color: inherit;
+    color: inherit;
+    border-color: inherit;
     width: 100%;
     margin: 0;
     max-width: none;
@@ -89,30 +93,29 @@
         border-radius: 2px 0 0 2px;
         -webkit-appearance: none;
         outline: none;
-        border: none;
+        border: 1px solid $border-color;
       }
     }
     .button {
-      height: 24px;
+      height: 26px;
       width: 24px;
-      line-height: 24px;
-      font-size: 24px;
+      line-height: 26px;
+      font-size: 26px;
       border-radius: 2px;
-      background-color: white;
-      color: #4B4B4B;
+      background-color: $header-background-color;
+      color: $header-color;
       cursor: pointer;
       .mat-icon {
+        border: 1px solid $border-color;
         font-size: 24px;
-        height: inherit;
-        width: inherit;
       }
     }
     .clear {
       border-radius: 0 2px 2px 0;
       .mat-icon {
+        border-left: none;
         font-size: 20px;
         line-height: 24px;
-        animation: fadein 500ms ease-in;
       }
     }
     .filter {

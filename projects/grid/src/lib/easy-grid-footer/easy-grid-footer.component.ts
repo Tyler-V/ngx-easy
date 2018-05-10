@@ -14,7 +14,7 @@ export class EasyGridFooterComponent implements OnInit {
 
   ngOnInit() { }
 
-  numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  numberWithCommas(number: number): string {
+    return number ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : null;
   }
 }

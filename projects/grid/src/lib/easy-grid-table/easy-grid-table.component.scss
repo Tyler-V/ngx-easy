@@ -1,43 +1,43 @@
+@import '../styles';
 .ez-grid-table {
-  table {
-    height: 100%;
-    font-size: 15px;
-    width: 100%;
-    background-color: #FFFFFF;
-    color: #656565;
-    border-color: rgba(0, 0, 0, .08);
-    margin: 0;
-    max-width: none;
-    border-width: 0;
-    border-collapse: separate;
-    border-spacing: 0;
-    empty-cells: show;
-    outline: 0;
-    table-layout: fixed;
-    tbody {
-      text-align: left;
+  color: $table-row-color;
+  background-color: $table-row-background-color;
+  border-color: $border-color;
+  height: 100%;
+  font-size: 15px;
+  width: 100%;
+  margin: 0;
+  max-width: none;
+  border-width: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  empty-cells: show;
+  outline: 0;
+  table-layout: fixed;
+  tbody {
+    text-align: left;
+    border-color: inherit;
+    tr {
+      display: table-row;
+      vertical-align: inherit;
       border-color: inherit;
-      tr {
-        display: table-row;
-        vertical-align: inherit;
+      background-color: inherit;
+      &.alt {
+        background-color: $table-row-background-color-alt;
+      }
+      td {
+        padding: 10px;
+        border-width: 0 1px 0 0;
+        vertical-align: middle;
+        border-style: solid;
         border-color: inherit;
-        &.alt {
-          background-color: #F6F6F6;
-        }
-        td {
-          padding: 10px;
-          border-width: 0 1px 0 0;
-          vertical-align: middle;
-          border-style: solid;
-          border-color: inherit;
-          outline: 0;
-          font-weight: inherit;
-          text-align: inherit;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          &:last-child {
-            border-width: 0;
-          }
+        outline: 0;
+        font-weight: inherit;
+        text-align: inherit;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &:last-child {
+          border-width: 0;
         }
       }
     }

@@ -14,6 +14,7 @@ export class EasyGridService {
   public sortable: boolean;
   public filterable: boolean;
   public headerHeight: number;
+  public footer: boolean;
   public footerHeight: number;
 
   public index: ScrollIndex;
