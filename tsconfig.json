@@ -17,10 +17,10 @@
       "dom"
     ],
     "paths": {
-      "virtual-scroll": [
+      "@ngx-easy/virtual-scroll": [
         "dist/virtual-scroll"
       ],
-      "grid": [
+      "@ngx-easy/grid": [
         "dist/grid"
       ]
     }
