@@ -4,12 +4,12 @@
   "private": false,
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
-  },
-  "dependencies": {
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/animations": "^6.0.0",
     "@angular/cdk": "^6.0.1",
-    "@angular/material": "^6.0.1",
+    "@angular/material": "^6.0.1"
+  },
+  "dependencies": {
     "@ngx-easy/virtual-scroll": "0.0.10",
     "lodash": "^4.17.10",
     "rxjs": "^6.1.0",
