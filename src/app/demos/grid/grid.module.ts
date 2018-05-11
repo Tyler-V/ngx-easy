@@ -4,7 +4,6 @@ import { MomentModule } from 'ngx-moment';
 import { GridRoutingModule } from './grid-routing.module';
 import { GridComponent } from './grid.component';
 import { PhonePipe } from './pipes/phone.pipe';
-// import { EasyGridModule } from '@ngx-easy/grid';
 import { EasyGridModule } from 'projects/grid/src/public_api';
 
 @NgModule({
