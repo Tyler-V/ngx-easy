@@ -23,7 +23,7 @@ export class EasyGridHeaderComponent implements OnInit, OnDestroy {
   @ViewChild('header') header: ElementRef;
   filter$ = new Subject<string>();
 
-  private workers: Promise<any>[] = [];
+  private sortWorkers: Promise<any>[] = [];
   private filterSubscription: Subscription;
   private scrollSubscription: Subscription;
 
@@ -54,7 +54,7 @@ export class EasyGridHeaderComponent implements OnInit, OnDestroy {
     this.filter$.next('');
   }
 
-  async filter() {
+  filter() {
     const columns: Array<EasyGridColumn> = [];
     this.gridService.columns.forEach(column => {
       if (column.filterText) {
@@ -68,23 +68,10 @@ export class EasyGridHeaderComponent implements OnInit, OnDestroy {
       return;
     }
 
-    function filter(input: any): any[] {
-      const Contains = (index, filterText) => value => {
-        return value[Object.keys(value)[index]].includes(filterText);
-      };
-      let data = input.data;
-      for (const column of input.columns) {
-        data = data.filter(Contains(column.index, column.filterText));
-      }
-      return data;
-    }
-
-    const worker = this.webWorkerService.run(Filtering.filter, {
+    this.webWorkerService.run(Filtering.filter, {
       data: this.gridService._data,
       columns: _.map(columns, column => _.pick(column, ['index', 'filter', 'filterText']))
-    });
-    this.workers.push(worker);
-    worker.then(data => {
+    }).then(data => {
       this.gridService.data = data;
       this.gridService.columns.forEach(column => column.filtering = false);
     }).catch(error => console.log(error));
@@ -114,18 +101,18 @@ export class EasyGridHeaderComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.workers.forEach(worker => {
+    this.sortWorkers.forEach(worker => {
       this.webWorkerService.terminate(worker);
     });
-    this.workers = [];
+    this.sortWorkers = [];
 
     if (column.sort !== EasySort.None) {
-      const worker = this.webWorkerService.run(Sorting.sort, {
+      const worker = this.webWorkerService.run(Sorting.FastSort, {
         data: this.gridService.data,
         field: column.field,
         sort: column.sort
       });
-      this.workers.push(worker);
+      this.sortWorkers.push(worker);
       worker.then(data => {
         column.sorting = false;
         this.gridService.data = data;
