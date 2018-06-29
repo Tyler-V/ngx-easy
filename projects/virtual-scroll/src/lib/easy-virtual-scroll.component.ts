@@ -9,11 +9,13 @@ import {
   OnDestroy,
   OnChanges,
   SimpleChanges,
-  HostBinding
+  HostBinding,
+  NgZone,
 } from '@angular/core';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { ScrollIndex, ScrollEvent, ScrollType } from './types';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'ez-virtual-scroll',
@@ -28,8 +30,7 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
   @Input() rowHeight: number;
   @Input() buffer: number;
   @Input() debounceTime: number;
-
-  @Output() update: EventEmitter<ScrollIndex> = new EventEmitter<ScrollIndex>();
+  
   @Output() scroll: EventEmitter<ScrollEvent> = new EventEmitter<ScrollEvent>();
 
   @ViewChild('transit') transit: ElementRef;
@@ -42,38 +43,24 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
   public rows: number;
   public topPadding: number;
 
-  private scrollTop: number;
-  private scrollLeft: number;
   private yScrollSubscription$: Subscription;
-  private xScrollSubscription$: Subscription;
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(
+    private _ngZone: NgZone,
+    private _elementRef: ElementRef,
+  ) { }
 
   ngOnInit() {
-    const scrollSubscription$: Observable<Event> = fromEvent(this.elementRef.nativeElement, 'scroll');
-    this.yScrollSubscription$ = scrollSubscription$
-      .pipe(debounceTime(this.debounceTime))
-      .subscribe(() => {
-        const scrollTop = this.elementRef.nativeElement.scrollTop;
-        if (this.scrollTop !== scrollTop) {
-          this.scrollTop = scrollTop;
-          this.refresh();
-        }
-      });
-    this.xScrollSubscription$ = scrollSubscription$
-      .subscribe(() => {
-        const scrollLeft = this.elementRef.nativeElement.scrollLeft;
-        if (this.scrollLeft !== scrollLeft) {
-          this.scrollLeft = scrollLeft;
-          this.scroll.emit({
-            type: ScrollType.Horizontal,
-            scrollLeft: this.scrollLeft
-          });
-        }
-      });
-    this.scroll.emit({
-      type: ScrollType.Vertical,
-      index: this.getIndex()
+    this._ngZone.runOutsideAngular(() => {
+      const scrollSubscription$: Observable<Event> = fromEvent(this._elementRef.nativeElement, 'scroll');
+      if (this.debounceTime) {
+        this.yScrollSubscription$ = scrollSubscription$
+          .pipe(debounceTime(this.debounceTime))
+          .subscribe(() => this.refresh());
+      } else {
+        this.yScrollSubscription$ = scrollSubscription$
+          .subscribe(() => this.refresh());
+      }
     });
   }
 
@@ -84,18 +71,17 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
 
   ngOnDestroy() {
     this.yScrollSubscription$.unsubscribe();
-    this.xScrollSubscription$.unsubscribe();
   }
 
   /**
    * Gets the current Index of items that should be displayed based on the scroll position.
    */
   private getIndex(): ScrollIndex {
-    const el = this.elementRef.nativeElement;
+    const el = this._elementRef.nativeElement;
     const scrollHeight = this.rowHeight * this.size;
-    el.scrollTop = Math.max(0, Math.min(el.scrollTop, scrollHeight));
-    const start = Math.max(0, Math.floor(el.scrollTop / scrollHeight * this.size));
-    const end = Math.min(this.size, Math.ceil(el.scrollTop / scrollHeight * this.size) + Math.ceil(el.clientHeight / this.rowHeight));
+    const scrollTop = Math.max(0, Math.min(el.scrollTop, scrollHeight));
+    const start = Math.max(0, Math.floor(scrollTop / scrollHeight * this.size));
+    const end = Math.min(this.size, Math.ceil(scrollTop / scrollHeight * this.size) + Math.ceil(el.clientHeight / this.rowHeight));
     return {
       start: start,
       end: end
@@ -106,22 +92,13 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
    * @returns: Whether the grid is getting close to the start or end of the currently displayed content.
    */
   private shouldUpdate(index: ScrollIndex) {
-    if (!this.index) {
-      return true;
-    }
-    return ((Math.max(0, (index.start - this.rows)) < this.index.start)
+    return !this.index || ((Math.max(0, (index.start - this.rows)) < this.index.start)
       || (Math.min(this.size, (index.end + this.rows)) > this.index.end));
   }
 
   public refresh() {
     requestAnimationFrame(() => {
       const index = this.getIndex();
-
-      this.scroll.emit({
-        type: ScrollType.Vertical,
-        index: this.getIndex()
-      });
-
       if (!this.shouldUpdate(index)) {
         return;
       }
@@ -138,8 +115,13 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
 
       if (this.previousIndex === undefined || index.start !== this.previousIndex.start || index.end !== this.previousIndex.end) {
         if (!isNaN(index.start) && !isNaN(index.end)) {
-          this.index = this.previousIndex = index;
-          this.update.emit(this.index);
+          this._ngZone.run(() => {
+            this.index = this.previousIndex = index;
+            this.scroll.emit({
+              type: ScrollType.Vertical,
+              index: index
+            });
+          });
         }
       }
     });

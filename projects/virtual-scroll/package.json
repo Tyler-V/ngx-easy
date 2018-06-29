@@ -1,6 +1,6 @@
 {
   "name": "@ngx-easy/virtual-scroll",
-  "version": "0.0.13",
+  "version": "0.0.15",
   "private": false,
   "peerDependencies": {
     "@angular/common": "^6.x.x",

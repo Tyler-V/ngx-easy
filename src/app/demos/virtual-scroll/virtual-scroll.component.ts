@@ -12,7 +12,7 @@ export class VirtualScrollComponent {
   items = [];
 
   constructor() {
-    this.generateVirtualItems(10000);
+    this.generateVirtualItems(100000);
   }
 
   generateVirtualItems(amount: number) {
