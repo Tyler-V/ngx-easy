@@ -11,10 +11,8 @@ import {
   SimpleChanges,
   HostBinding
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/observable/fromEvent';
+import { Observable, Subscription, fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { ScrollIndex, ScrollEvent, ScrollType } from './types';
 
 @Component({
@@ -52,9 +50,9 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
-    const scrollSubscription$: Observable<Event> = Observable.fromEvent(this.elementRef.nativeElement, 'scroll');
+    const scrollSubscription$: Observable<Event> = fromEvent(this.elementRef.nativeElement, 'scroll');
     this.yScrollSubscription$ = scrollSubscription$
-      .debounceTime(this.debounceTime)
+      .pipe(debounceTime(this.debounceTime))
       .subscribe(() => {
         const scrollTop = this.elementRef.nativeElement.scrollTop;
         if (this.scrollTop !== scrollTop) {

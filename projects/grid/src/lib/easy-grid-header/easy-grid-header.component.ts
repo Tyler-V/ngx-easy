@@ -4,10 +4,9 @@ import { EasyGridColumn } from '../easy-grid-column/easy-grid-column';
 import { WebWorkerService } from '../services/web-worker.service';
 import { EasySort, Sorting } from './sorting';
 import { EasyFilter, Filtering } from './filtering';
-import { Subscription } from 'rxjs/Subscription';
-import { MatMenu } from '@angular/material/menu';
+import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { MatMenu } from '@angular/material/menu';
 import * as _ from 'lodash';
 
 @Component({
@@ -34,10 +33,9 @@ export class EasyGridHeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.filterSubscription =
-      this.filter$.pipe(
-        debounceTime(500),
-      ).subscribe(() => this.filter());
+    this.filterSubscription = this.filter$
+      .pipe(debounceTime(500))
+      .subscribe(() => this.filter());
   }
 
   ngOnDestroy() {

@@ -2,10 +2,8 @@ import { Component, HostBinding, ElementRef, OnInit, OnDestroy, ViewChild } from
 import { EasyGridService } from './../services/easy-grid.service';
 import { EasyVirtualScrollComponent } from '@ngx-easy/virtual-scroll';
 import { ScrollIndex, ScrollEvent, ScrollType } from '@ngx-easy/virtual-scroll';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/observable/fromEvent';
+import { Observable, Subscription, fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'ez-grid-table',
@@ -26,8 +24,8 @@ export class EasyGridTableComponent implements OnInit, OnDestroy {
     this.gridService.hasScrollBar = !this.gridService.isMobile &&
       (this.gridService.data.length * this.gridService.rowHeight >= this.elementRef.nativeElement.offsetHeight);
 
-    this.windowResizeSubscription$ = Observable.fromEvent(window, 'resize')
-      .debounceTime(100)
+    this.windowResizeSubscription$ = fromEvent(window, 'resize')
+      .pipe(debounceTime(100))
       .subscribe(() => {
         this.vs.refresh();
       });

@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { EasyGridColumn } from '../easy-grid-column/easy-grid-column';
 import { ScrollIndex } from '@ngx-easy/virtual-scroll';
-import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class EasyGridService {

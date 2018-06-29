@@ -1,18 +1,17 @@
 {
   "name": "@ngx-easy/grid",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "private": false,
   "peerDependencies": {
-    "@angular/common": "^6.0.1",
-    "@angular/core": "^6.0.1",
-    "@angular/animations": "^6.0.1",
-    "@angular/cdk": "^6.0.1",
-    "@angular/material": "^6.0.1"
+    "@angular/common": "^6.x.x",
+    "@angular/core": "^6.x.x",
+    "@angular/animations": "^6.x.x",
+    "@angular/cdk": "^6.x.x",
+    "@angular/material": "^6.x.x"
   },
   "dependencies": {
-    "@ngx-easy/virtual-scroll": "0.0.12",
+    "@ngx-easy/virtual-scroll": "0.0.13",
     "lodash": "^4.17.10",
-    "rxjs": "^6.1.0",
-    "rxjs-compat": "^6.1.0"
+    "rxjs": "^6.x.x"
   }
 }
