@@ -30,7 +30,7 @@ export class EasyVirtualScrollComponent implements OnInit, OnChanges, OnDestroy 
   @Input() rowHeight: number;
   @Input() buffer: number;
   @Input() debounceTime: number;
-  
+
   @Output() scroll: EventEmitter<ScrollEvent> = new EventEmitter<ScrollEvent>();
 
   @ViewChild('transit') transit: ElementRef;
