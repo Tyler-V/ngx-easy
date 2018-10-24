@@ -1,13 +1,17 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/grid",
-  "deleteDestPath": false,
+  "deleteDestPath": true,
   "whitelistedNonPeerDependencies": [
     "@ngx-easy/virtual-scroll",
     "lodash",
     "rxjs"
   ],
   "lib": {
-    "entryFile": "src/public_api.ts"
+    "entryFile": "src/public_api.ts",
+    "umdModuleIds": {
+      "lodash": "_",
+      "@ngx-easy/virtual-scroll": "virtualScroll"
+    }
   }
 }

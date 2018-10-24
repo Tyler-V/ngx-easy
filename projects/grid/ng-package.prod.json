@@ -7,6 +7,10 @@
     "rxjs"
   ],
   "lib": {
-    "entryFile": "src/public_api.ts"
+    "entryFile": "src/public_api.ts",
+    "umdModuleIds": {
+      "lodash": "_",
+      "@ngx-easy/virtual-scroll": "virtualScroll"
+    }
   }
 }
